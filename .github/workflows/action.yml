@@ -52,11 +52,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: .
-      - uses: actions/configure-pages@v4
-        with:
-          branch: gh-pages
-          folder: .
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure pages
+        uses: actions/configure-pages@v4
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
