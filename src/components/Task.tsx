@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./task.module.css";
 
 type Task = {
@@ -14,14 +15,23 @@ interface TaskProps {
 
 export default function Task({
   task: { id, title, state = "NORMAL" },
-  onArchiveTask,
-  onPinTask,
 }: TaskProps): JSX.Element {
+
+  const [titleState, setTitleState] = useState(title);
+  
   return (
     <div className={styles.list_item}>
-      <label htmlFor="title" aria-label={title}>
-        <input type="text" value={title} readOnly={true} name="title" />
-      </label>
+      <label htmlFor="title" aria-label={titleState}></label>
+      <span className={styles.id_text}>{`#${id}`}</span>
+      <input
+        className={styles.task_input}
+        type="text"
+        value={titleState}
+        readOnly={false}
+        name="title"
+        onChange={(e) => setTitleState(e.target.value)}
+      />
+      <span>{state}</span>
     </div>
   );
 }
